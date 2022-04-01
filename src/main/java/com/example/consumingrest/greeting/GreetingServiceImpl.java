@@ -1,6 +1,5 @@
 package com.example.consumingrest.greeting;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -11,7 +10,6 @@ public class GreetingServiceImpl implements GreetingService {
     private static final String BASE_GREETING_SERVICE_URL = "http://localhost:5000/";
     private RestTemplate restTemplate;
 
-    @Autowired
     public GreetingServiceImpl(RestTemplateBuilder builder, GreetingCallerErrorHandler greetingCallerErrorHandler) {
         this.restTemplate = builder.errorHandler(greetingCallerErrorHandler).build();
     }
@@ -19,14 +17,11 @@ public class GreetingServiceImpl implements GreetingService {
 
     @Override
     public String getHelloWorldMessage() {
-        String response = restTemplate.getForObject(BASE_GREETING_SERVICE_URL,String.class);
-
-        return response;
+        return restTemplate.getForObject(BASE_GREETING_SERVICE_URL,String.class);
     }
 
     @Override
     public String getGreetingMessage(String name) {
-        String response = restTemplate.getForObject(BASE_GREETING_SERVICE_URL + name,String.class);
-        return response;
+        return restTemplate.getForObject(BASE_GREETING_SERVICE_URL + name,String.class);
     }
 }
